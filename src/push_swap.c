@@ -5,88 +5,66 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/09 04:11:41 by agirona           #+#    #+#             */
-/*   Updated: 2021/09/09 04:16:16 by agirona          ###   ########lyon.fr   */
-/*                                                                            */
-/* ************************************************************************** */
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 02:25:36 by agirona           #+#    #+#             */
-/*   Updated: 2021/09/09 04:09:24 by agirona          ###   ########lyon.fr   */
+/*   Updated: 2021/09/10 03:56:00 by agirona          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_stack	*create_list(char *value)
+void	print_data(t_stack *a_stack, t_stack *b_stack)
 {
-	t_stack		*list;
-	t_element	*element;
-
-	list = malloc(sizeof(*list)); //protection
-	element = malloc(sizeof(*element)); // protection
-	list->first = element;
-	element->value = ft_atoi(value);
-	element->next = NULL;
-	return (list);
+	ft_putstr("Stack A : ");
+	print_stack(a_stack);
+	ft_putstr("   Len = ");
+	ft_putnbr(a_stack->len);
+	ft_putstr("   Last = ");
+	if (a_stack->last)
+		ft_putnbr(a_stack->last->value);
+	else
+		ft_putstr("NULL");
+	ft_putstr("\nStack B : ");
+	print_stack(b_stack);
+	ft_putstr("   Len = ");
+	ft_putnbr(b_stack->len);
+	ft_putstr("   Last = ");
+	if (b_stack->last)
+		ft_putnbr(b_stack->last->value);
+	else
+		ft_putstr("NULL");
+	ft_putchar('\n');
+	ft_putchar('\n');
 }
 
-t_element	*create_element(char *value)
+void	create_stack(int argc, char **argv)
 {
-	t_element	*new;
+	t_stack		*a_stack;
+	t_stack		*b_stack;
 
-	new = malloc(sizeof(*new)); //protection
-	new->value = ft_atoi(value);
-	new->next = NULL;
-	return (new);
-}
+	a_stack = malloc(sizeof(*a_stack)); //protection
+	a_stack->first = create_element(ft_atoi(argv[1]));
+	init_stack(a_stack, argc, argv);
+	get_last_element(a_stack);
+	a_stack->len = argc - 1;
+	b_stack = malloc(sizeof(*b_stack)); //protection
+	b_stack->first = NULL;
+	b_stack->last = NULL;
+	b_stack->len = 0;
 
-void	init_list(t_stack *list, int argc, char **argv)
-{
-	int		i;
-	t_element	*new;
-	t_element	*current;
+	print_data(a_stack, b_stack);
+	rotate(a_stack);
+	print_data(a_stack, b_stack);
 
-	i = 1;
-	current = list->first;
-	while (i < argc)
-	{
-		new = create_element(argv[i]); //protection
-		current->next = new;
-		current = current->next;
-		i++;
-	}
-}
-
-void	print_list(t_stack *list)
-{
-	t_element	*current;
-
-	current = list->first;
-	while (current != NULL)
-	{
-		ft_putnbr(current->value);
-		current = current->next;
-	}
+	delete_stack(a_stack, b_stack);
 }
 
 int		main(int argc, char **argv)
 {
-	t_stack	*list;
-
 	if (argc == 1)
 	{
 		ft_putstr("Error\n");
 		return (0);
 	}
-	list = create_list(argv[1]);
-	init_list(list, argc, argv);
-	print_list(list);
+	create_stack(argc, argv);
 	return (1);
 }
