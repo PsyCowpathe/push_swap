@@ -6,7 +6,7 @@
 /*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 02:45:05 by agirona           #+#    #+#             */
-/*   Updated: 2021/09/10 03:19:48 by agirona          ###   ########lyon.fr   */
+/*   Updated: 2021/09/13 20:41:50 by agirona          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,12 @@ void	get_last_element(t_stack *stack)
 	t_element	*current;
 
 	current = stack->first;
+	stack->before_last = NULL;
 	stack->last = NULL;
 	while (current != NULL)
 	{
+		if (current->next != NULL && stack->len > 1 && current->next->next == NULL)
+			stack->before_last = current;
 		stack->last = current;
 		current = current->next;
 	}
@@ -53,6 +56,7 @@ void	init_stack(t_stack *list, int argc, char **argv)
 	i = 2;
 	current = list->first;
 	list->last = NULL;
+	list->before_last = NULL;
 	while (i < argc)
 	{
 		new = create_element(ft_atoi(argv[i])); //protection
@@ -92,6 +96,7 @@ void	print_stack(t_stack *list)
 	while (current != NULL)
 	{
 		ft_putnbr(current->value);
+		ft_putchar(' ');
 		current = current->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 02:30:11 by agirona           #+#    #+#             */
-/*   Updated: 2021/09/10 03:49:51 by agirona          ###   ########lyon.fr   */
+/*   Updated: 2021/09/13 20:41:51 by agirona          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct s_stack
 {
 	t_element	*first;
 	t_element	*last;
+	t_element	*before_last;
 	int			len;
 }				t_stack;
 
@@ -41,5 +42,6 @@ void		get_last_element(t_stack *stack);
 int			swap(t_stack *a_stack);
 int			push(t_stack *first_stack, t_stack *second_stack);
 int			rotate(t_stack	*stack);
+int			reverse_rotate(t_stack *stack);
 
 #endif
