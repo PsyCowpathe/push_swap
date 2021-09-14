@@ -6,7 +6,7 @@
 /*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 02:30:11 by agirona           #+#    #+#             */
-/*   Updated: 2021/09/13 20:41:51 by agirona          ###   ########lyon.fr   */
+/*   Updated: 2021/09/14 19:42:31 by agirona          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ typedef struct s_stack
 	t_element	*last;
 	t_element	*before_last;
 	int			len;
+	int			pivot;
+	int			position;
 }				t_stack;
 
 //stack_utils

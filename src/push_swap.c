@@ -6,7 +6,7 @@
 /*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 02:25:36 by agirona           #+#    #+#             */
-/*   Updated: 2021/09/13 20:41:49 by agirona          ###   ########lyon.fr   */
+/*   Updated: 2021/09/14 19:42:31 by agirona          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,29 +50,91 @@ void	print_data(t_stack *a_stack, t_stack *b_stack)
 	ft_putchar('\n');
 }
 
-#include <stdio.h>
-
-void	select_pivot(t_stack *stack)
+int		get_next_value(t_stack *stack, int value)
 {
-	int			max;
-	int			min;
-	float		pivot;
 	t_element	*current;
+	int			find;
 
-	max = stack->first->value;
-	min = stack->first->value;
 	current = stack->first;
 	while (current != NULL)
 	{
-		if (current->value > max)
-			max = current->value;
-		if (current->value < min)
-			min = current->value;
+		if (current->value > value)
+		{
+			find = current->value;
+			current = NULL;
+		}
+		else
+			current = current->next;
+	}
+	current = stack->first;
+	while (current != NULL)
+	{
+		if (current->value < find && current->value > value)
+			find = current->value;
 		current = current->next;
 	}
-	pivot = ((((max - min) * 0.5) * 0.5) * 0.5);
-	pivot = (int)pivot + min;
-	dprintf(1, "pivot = %f", pivot);
+	return (find);
+}
+
+int		get_lower_value(t_stack *stack)
+{
+	t_element	*current;
+	int			lower;
+
+	current = stack->first;
+	lower = stack->first->value;
+	while (current != NULL)
+	{
+		if (current->value < lower)
+			lower = current->value;
+		current = current->next;
+	}
+	return (lower);
+}
+
+int		select_pivot(t_stack *stack, int position)
+{
+	int			pivot;
+	int			i;
+
+	i = 1;
+	pivot = get_lower_value(stack);
+	while (i < position)
+	{
+		pivot = get_next_value(stack, pivot);
+		i++;
+	}
+	return (pivot);
+}
+
+void	rush_b(t_stack *a_stack, t_stack *b_stack)
+{
+	int			i;
+	float		percent;
+	t_element	*current;
+
+	percent = 0.13125;
+	while (a_stack->len > 2)
+	{
+		a_stack->position = a_stack->len * percent;
+		a_stack->pivot = select_pivot(a_stack, a_stack->position);
+		ft_putstr("pivot = ");
+		ft_putnbr(a_stack->pivot);
+		ft_putchar('\n');
+		i = 0;
+		while (i < a_stack->position && a_stack->position != 1)
+		{
+			current = a_stack->first;
+			if (current->value <= a_stack->pivot)
+			{
+				push(a_stack, b_stack);
+				i++;
+			}
+			else
+				rotate(a_stack);
+		}
+		percent += 0.425;
+	}
 }
 
 void	create_stack(int argc, char **argv)
@@ -92,9 +154,12 @@ void	create_stack(int argc, char **argv)
 	b_stack->len = 0;
 
 	print_data(a_stack, b_stack);
-	reverse_rotate(a_stack);
+	ft_putchar('\n');
+	rush_b(a_stack, b_stack);
 	print_data(a_stack, b_stack);
-	select_pivot(a_stack);
+
+
+
 
 	delete_stack(a_stack, b_stack);
 }
