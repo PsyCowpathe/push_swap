@@ -6,7 +6,7 @@
 /*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 02:25:36 by agirona           #+#    #+#             */
-/*   Updated: 2021/09/15 19:50:45 by agirona          ###   ########lyon.fr   */
+/*   Updated: 2021/09/23 17:24:18 by agirona          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,7 +228,7 @@ void	counter_b(t_stack *a_stack, t_stack *b_stack)
 	}
 }
 
-void	create_stack(int argc, char **argv)
+int	create_stack(int argc, char **argv)
 {
 	t_stack		*a_stack;
 	t_stack		*b_stack;
@@ -255,6 +255,61 @@ void	create_stack(int argc, char **argv)
 
 
 	delete_stack(a_stack, b_stack);
+	return (1);
+}
+
+int		check_duplicate(int len, char **list)
+{
+	int		i;
+	int		c;
+
+	i = 0;
+	while (i < len)
+	{
+		c = 0;
+		while (c < len)
+		{
+			if (ft_strcmp(list[c], list[i]) == 0 && c != i)
+			{
+				ft_putstr("Error\nSeveral ");
+				ft_putstr(list[c]);
+				ft_putstr(" in program argument.");
+				return (0);
+			}
+			c++;
+		}
+		i++;
+	}
+	return (1);
+}
+
+#include <stdio.h>
+
+int		check_int(int len, char **list)
+{
+	int			i;
+	int			c;
+	int			isint;
+
+	i = 0;
+	while (i < len)
+	{
+		c = 0;
+		while (list[i][c])
+		{
+			if ((list[i][c] == '-' && ft_isdigit(list[i][c + 1]) == 0)
+				|| (c != 0 && ft_isdigit(list[i][c] == 0)))
+				return (0);
+			c++;
+		}
+		if (c == 0)
+			return (0);
+		ft_atoi_check(list[i], &isint);
+		if (isint == 0)
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
 int		main(int argc, char **argv)
@@ -264,6 +319,17 @@ int		main(int argc, char **argv)
 		ft_putstr("Error\n");
 		return (0);
 	}
-	create_stack(argc, argv);
+	if (check_int(argc - 1, argv + 1) == 0)
+	{
+		ft_putstr("Error\nSome arguments aren't integer.");
+		return (0);
+	}
+	if (check_duplicate(argc - 1, argv + 1) == 0)
+		return (0);
+	if (create_stack(argc, argv) == 0)
+	{
+		ft_putstr("Error\n");
+		return (0);
+	}
 	return (1);
 }
