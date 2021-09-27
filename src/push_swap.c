@@ -6,7 +6,7 @@
 /*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 02:25:36 by agirona           #+#    #+#             */
-/*   Updated: 2021/09/23 17:24:18 by agirona          ###   ########lyon.fr   */
+/*   Updated: 2021/09/27 21:33:47 by agirona          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,49 +107,6 @@ int		select_pivot(t_stack *stack, int position)
 	return (pivot);
 }
 
-void	rush_b(t_stack *a_stack, t_stack *b_stack)
-{
-	int			i;
-	float		percent;
-	int			len;
-	t_element	*current;
-	int			pivot2;
-
-	if (a_stack->len <= 100)
-		percent = 0.13125 * 3;
-	else
-		percent = 0.13125;
-	while (a_stack->len > 2)
-	{
-		len = a_stack->len;
-		a_stack->position = a_stack->len * percent;
-		a_stack->pivot = select_pivot(a_stack, a_stack->position);
-		pivot2 = select_pivot(a_stack, a_stack->position * 0.5);
-		ft_putstr("pivot1 = ");
-		ft_putnbr(a_stack->pivot);
-		ft_putstr(" pivot2 = ");
-		ft_putnbr(a_stack->position / 2);
-		ft_putchar('\n');
-		i = 0;
-		while (i < a_stack->position && a_stack->position != 1)
-		{
-			current = a_stack->first;
-			if (current->value <= a_stack->pivot)
-			{
-				push(a_stack, b_stack);
-				if (b_stack->first->value < pivot2)
-					rotate(b_stack);
-				i++;
-			}
-			else
-				rotate(a_stack);
-		}
-		if (percent < 0.70)
-			percent += 0.195;
-		print_data(a_stack, b_stack);
-	}
-}
-
 int		get_next_highter_value(t_stack *stack, int value)
 {
 	int			find;
@@ -185,15 +142,65 @@ int		get_next_highter_value(t_stack *stack, int value)
 		current = current->next;
 		i++;
 	}
-	print_stack(stack);
-	ft_putstr("valeur envoye = ");
-	ft_putnbr(value);
-	ft_putstr(" position = ");
-	ft_putnbr(position);
-	ft_putstr(" valeur = ");
-	ft_putnbr(find);
 	return (position);
 }
+
+void	rush_b(t_stack *a_stack, t_stack *b_stack)
+{
+	int			i;
+	float		percent;
+	t_element	*current;
+	int			pivot2;
+
+	if (a_stack->len <= 100)
+		percent = 0.13125 * 3;
+	else
+		percent = 0.13125;
+	while (a_stack->len > 3)
+	{
+		a_stack->position = a_stack->len * percent;
+		a_stack->pivot = select_pivot(a_stack, a_stack->position);
+		pivot2 = select_pivot(a_stack, a_stack->position * 0.5);
+		i = 0;
+		while (i < a_stack->position && a_stack->position != 1)
+		{
+			current = a_stack->first;
+			if (current->value <= a_stack->pivot)
+			{
+				push(a_stack, b_stack);
+				ft_putstr("pb\n");
+				if (b_stack->first->value < pivot2)
+				{
+					rotate(b_stack);
+					ft_putstr("rb\n");
+				}
+				i++;
+			}
+			else
+			{
+				if (get_next_highter_value(a_stack, get_lower_value(a_stack)) == 2)
+				{
+					swap(a_stack);
+					ft_putstr("sa\n");
+				}
+				else if (get_next_highter_value(a_stack, get_lower_value(a_stack)) < a_stack->len * 0.5)
+				{
+					rotate(a_stack);
+					ft_putstr("ra\n");
+				}
+				else
+				{
+					reverse_rotate(a_stack);
+					ft_putstr("rra\n");
+				}
+			}
+		}
+		if (percent < 0.70)
+			percent += 0.195;
+		//print_data(a_stack, b_stack);
+	}
+}
+
 
 void	counter_b(t_stack *a_stack, t_stack *b_stack)
 {
@@ -203,28 +210,106 @@ void	counter_b(t_stack *a_stack, t_stack *b_stack)
 	while (b_stack->len != 0)
 	{
 		position = get_next_highter_value(b_stack, a_stack->first->value);
-		if (position < b_stack->len * 0.5)
+		if (position == 2)
+		{
+			swap(b_stack);
+			ft_putstr("sb\n");
+			//print_data(a_stack, b_stack);
+		}
+		else if (position < b_stack->len * 0.5)
 		{
 			i = 1;
 			while (i < position)
 			{
 				rotate(b_stack);
+				ft_putstr("rb\n");
+				//print_data(a_stack, b_stack);
 				i++;
 			}
 		}
 		else
 		{
 			i = b_stack->len + 1;
-			while (i > position)
+			while (i > position && b_stack->len != 1)
 			{
 				reverse_rotate(b_stack);
+				ft_putstr("rrb\n");
+				//print_data(a_stack, b_stack);
 				i--;
 			}
 		}
-		ft_putstr("valeur push = ");
-		ft_putnbr(b_stack->first->value);
-		ft_putchar('\n');
 		push(b_stack, a_stack);
+		ft_putstr("pa\n");
+		//print_data(a_stack, b_stack);
+	}
+}
+
+int		is_sort(t_stack *stack)
+{
+	t_element	*current;
+	t_element	*verif;
+
+	current = stack->first;
+	while (current != NULL)
+	{
+		verif = current;
+		while (verif != NULL)
+		{
+			if (verif->value < current->value)
+				return (0);
+			verif = verif->next;
+		}	
+		current = current->next;
+	}
+	return (1);
+}
+
+void	mini_sort(t_stack *stack)
+{
+	if (stack->len == 2)
+	{
+		swap(stack);
+		ft_putstr("sa\n");
+	}
+	else
+	{
+		if (stack->before_last->value < stack->first->value && stack->before_last->value < stack->last->value)
+		{
+			if (stack->first->value < stack->last->value)
+			{
+				swap(stack);
+				ft_putstr("sa\n");
+			}
+			else
+			{
+				rotate(stack);
+				ft_putstr("ra\n");
+
+			}
+		}
+		else if (stack->before_last->value > stack->first->value && stack->before_last->value > stack->last->value)
+		{
+			if (stack->first->value < stack->last->value)
+			{
+				reverse_rotate(stack);
+				ft_putstr("rra\n");
+				swap(stack);
+				ft_putstr("sa\n");
+			}
+			else
+			{
+				reverse_rotate(stack);
+				ft_putstr("rra\n");
+
+			}
+		}
+		else
+		{
+			swap(stack);
+			ft_putstr("sa\n");
+			reverse_rotate(stack);
+			ft_putstr("rra\n");
+		}
 	}
 }
 
@@ -246,14 +331,19 @@ int	create_stack(int argc, char **argv)
 
 	print_data(a_stack, b_stack);
 	ft_putchar('\n');
-	//check if A is sorted
 	rush_b(a_stack, b_stack);
+	if (is_sort(a_stack) == 0)
+		mini_sort(a_stack);
 	counter_b(a_stack, b_stack);
 	ft_putchar('\n');
 	ft_putchar('\n');
 	print_data(a_stack, b_stack);
 
 
+	if (is_sort(a_stack) == 1)
+		ft_putstr("DONE");
+	else
+		ft_putstr("FAIL");
 	delete_stack(a_stack, b_stack);
 	return (1);
 }
