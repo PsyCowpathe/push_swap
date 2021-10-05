@@ -6,7 +6,7 @@
 /*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 02:45:05 by agirona           #+#    #+#             */
-/*   Updated: 2021/09/27 21:33:48 by agirona          ###   ########lyon.fr   */
+/*   Updated: 2021/10/05 21:21:36 by agirona          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,22 @@ void	delete_element(t_element *element)
 	}
 }
 
-t_element	*create_element(int value)
+void	delete_inst_element(t_inst_element *element)
+{
+	if (element)
+	{
+		free(element);
+		element = NULL;
+	}
+}
+
+
+void	*create_element(int content)
 {
 	t_element	*new;
 
 	new = malloc(sizeof(*new)); //protection
-	new->value = value;
+	new->value = content;
 	new->next = NULL;
 	return (new);
 }
@@ -66,9 +76,10 @@ void	init_stack(t_stack *list, int argc, char **argv)
 	}
 }
 
-void	delete_stack(t_stack *a_stack, t_stack *b_stack)
+void	delete_stack(t_stack *a_stack, t_stack *b_stack, t_inst_list *list)
 {
-	t_element	*current;
+	t_element		*current;
+	t_inst_element	*tmp;
 
 	current = a_stack->first;
 	while (current != NULL)
@@ -85,7 +96,14 @@ void	delete_stack(t_stack *a_stack, t_stack *b_stack)
 		delete_element(b_stack->first);
 		b_stack->first = current;
 	}
-	free(b_stack);
+	tmp = list->first;
+	while (tmp != NULL)
+	{
+		tmp = tmp->next;
+		delete_inst_element(list->first);
+		list->first = tmp;
+	}
+	free(list);
 }
 
 void	print_stack(t_stack *list)
@@ -95,7 +113,7 @@ void	print_stack(t_stack *list)
 	current = list->first;
 	while (current != NULL)
 	{
-		ft_putnbr(current->value);
+		ft_putnbr((int)current->value);
 		ft_putchar(' ');
 		current = current->next;
 	}

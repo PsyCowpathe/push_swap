@@ -6,13 +6,14 @@
 #    By: agirona <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/09 02:21:08 by agirona           #+#    #+#              #
-#    Updated: 2021/09/10 02:48:21 by agirona          ###   ########lyon.fr    #
+#    Updated: 2021/10/05 17:30:37 by agirona          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = push_swap
 
-SRCS = push_swap.c swap_instruction.c stack_utils.c
+SRCS = push_swap.c swap_instruction.c stack_utils.c parsing.c stack_finder.c \
+	   magic_sort.c TMP_debug.c
 
 SRCS_DIR = src
 

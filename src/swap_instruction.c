@@ -6,13 +6,41 @@
 /*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 01:23:33 by agirona           #+#    #+#             */
-/*   Updated: 2021/09/27 21:33:49 by agirona          ###   ########lyon.fr   */
+/*   Updated: 2021/10/05 21:21:36 by agirona          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int		swap(t_stack *stack)
+void	*create_inst_element(char *content)
+{
+	t_inst_element	*new;
+
+	new = malloc(sizeof(*new)); //protection
+	new->str = content;
+	new->next = NULL;
+	return (new);
+}
+
+void	add_list(t_inst_list *list, char *str)
+{
+	t_inst_element	*new;
+	t_inst_element	*current;
+
+	new = create_inst_element(str);
+	list->len++;
+	if (list->first == NULL)
+		list->first = new;
+	else
+	{
+		current = list->first;
+		while (current->next != NULL)
+			current = current->next;
+		current->next = new;
+	}
+}
+
+int		swap(t_stack *stack, t_inst_list *list)
 {
 	t_element	*new_first;
 	t_element	*tmp;
@@ -25,10 +53,11 @@ int		swap(t_stack *stack)
 	new_first->next->next = tmp;
 	stack->first = new_first;
 	get_last_element(stack);
+	add_list(list, stack->inst[0]);
 	return (1);
 }
 
-int		push(t_stack *sender, t_stack *receiver)
+int		push(t_stack *sender, t_stack *receiver, t_inst_list *list)
 {
 	t_element	*tmp;
 
@@ -44,10 +73,11 @@ int		push(t_stack *sender, t_stack *receiver)
 	sender->len--;
 	get_last_element(receiver);
 	get_last_element(sender);
+	add_list(list, receiver->inst[1]);
 	return (1);
 }
 
-int		rotate(t_stack	*stack)
+int		rotate(t_stack *stack, t_inst_list *list)
 {
 	t_element	*tmp;
 
@@ -58,10 +88,11 @@ int		rotate(t_stack	*stack)
 	stack->last->next = stack->first;
 	stack->first = tmp;
 	get_last_element(stack);
+	add_list(list, stack->inst[2]);
 	return (1);
 }
 
-int		reverse_rotate(t_stack *stack)
+int		reverse_rotate(t_stack *stack, t_inst_list *list)
 {
 	if (stack->len <= 1)
 		return (0);	
@@ -69,5 +100,6 @@ int		reverse_rotate(t_stack *stack)
 	stack->last->next = stack->first;
 	stack->first = stack->last;
 	get_last_element(stack);
+	add_list(list, stack->inst[3]);
 	return (1);
 }
