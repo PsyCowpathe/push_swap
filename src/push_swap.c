@@ -6,7 +6,7 @@
 /*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 02:25:36 by agirona           #+#    #+#             */
-/*   Updated: 2021/10/06 16:07:24 by agirona          ###   ########lyon.fr   */
+/*   Updated: 2021/10/06 21:17:42 by agirona          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,23 @@
 
 void	sorting(t_stack *a_stack, t_stack *b_stack, t_inst *list)
 {
+	//int		position;
+
 	rush_b(a_stack, b_stack, list);
 	if (is_sort(a_stack) == 0)
 		mini_sort(a_stack, list);
 	counter_b(a_stack, b_stack, list);
 	print_instruction(list);
+	print_data(a_stack, b_stack);
+	if (is_sort(a_stack) == 1)
+		ft_putstr("DONE");
+	else
+		ft_putstr("FAIL");
+	/*(void)list;
+	ft_putstr("next number = ");
+	ft_putnbr(get_next_value(a_stack, 2, &position));
+	ft_putstr(" at position : ");
+	ft_putnbr(position);*/
 }
 
 int	push_swap(int argc, char **argv)
@@ -32,7 +44,7 @@ int	push_swap(int argc, char **argv)
 	list = NULL;
 	a_stack = create_a_stack(argc, argv);
 	if (a_stack == NULL)
-		return (0);
+		return (delete_stack(a_stack, b_stack, list, 0));
 	if (is_sort(a_stack) == 1)
 		return (delete_stack(a_stack, b_stack, list, 1));
 	b_stack = create_b_stack();
@@ -57,7 +69,7 @@ int	main(int argc, char **argv)
 		ft_putstr("Error\nSome arguments aren't integer.");
 		return (0);
 	}
-	if (check_duplicate(argc - 1, argv + 1) == 0)
+	if (check_duplicate(argc - 1, argv + 1) == 0)//apres conversion
 		return (0);
 	if (push_swap(argc, argv) == 0)
 	{

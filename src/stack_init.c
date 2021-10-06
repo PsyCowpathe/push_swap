@@ -6,7 +6,7 @@
 /*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:03:15 by agirona           #+#    #+#             */
-/*   Updated: 2021/10/06 16:07:24 by agirona          ###   ########lyon.fr   */
+/*   Updated: 2021/10/06 16:29:22 by agirona          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ t_stack	*create_a_stack(int argc, char **argv)
 	if (a_stack == NULL)
 		return (NULL);
 	a_stack->first = create_element(ft_atoi(argv[1]));
-	init_stack(a_stack, argc, argv);
+	if (init_stack(a_stack, argc, argv) == 0)
+		return (NULL);
 	a_stack->len = argc - 1;
 	get_last_element(a_stack);
 	a_stack_inst(a_stack);

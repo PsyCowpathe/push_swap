@@ -6,7 +6,7 @@
 /*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 17:25:58 by agirona           #+#    #+#             */
-/*   Updated: 2021/10/06 16:02:10 by agirona          ###   ########lyon.fr   */
+/*   Updated: 2021/10/06 21:17:40 by agirona          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	rush_b(t_stack *a_stack, t_stack *b_stack, t_inst *list)
 	float		percent;
 	t_element	*current;
 	int			pivot2;
+	int			position;
 
 	if (a_stack->len <= 100)
 		percent = 0.13125 * 3;
@@ -41,9 +42,10 @@ void	rush_b(t_stack *a_stack, t_stack *b_stack, t_inst *list)
 			}
 			else
 			{
-				if (get_next_highter_value(a_stack, get_lower_value(a_stack)) == 2)
+				second_get_next_value(a_stack, get_lower_value(a_stack), &position);
+				if (position == 2)
 					swap(a_stack, list);
-				else if (get_next_highter_value(a_stack, get_lower_value(a_stack)) < a_stack->len * 0.5)
+				else if (position < a_stack->len * 0.5)
 					rotate(a_stack, list);
 				else
 					reverse_rotate(a_stack, list);
@@ -62,7 +64,7 @@ void	counter_b(t_stack *a_stack, t_stack *b_stack, t_inst *list)
 
 	while (b_stack->len != 0)
 	{
-		position = get_next_highter_value(b_stack, a_stack->first->value);
+		second_get_next_value(b_stack, a_stack->first->value, &position);
 		if (position == 2)
 		{
 			swap(b_stack, list);

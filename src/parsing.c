@@ -6,13 +6,13 @@
 /*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 17:26:58 by agirona           #+#    #+#             */
-/*   Updated: 2021/10/05 17:28:13 by agirona          ###   ########lyon.fr   */
+/*   Updated: 2021/10/06 16:47:28 by agirona          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int		check_duplicate(int len, char **list)
+int	check_duplicate(int len, char **list)
 {
 	int		i;
 	int		c;
@@ -37,7 +37,7 @@ int		check_duplicate(int len, char **list)
 	return (1);
 }
 
-int		check_int(int len, char **list)
+int	check_int(int len, char **list)
 {
 	int			i;
 	int			c;

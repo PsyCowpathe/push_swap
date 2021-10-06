@@ -1,37 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stack_utils.c                                      :+:      :+:    :+:   */
+/*   instruction.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/10 02:45:05 by agirona           #+#    #+#             */
-/*   Updated: 2021/10/06 16:31:42 by agirona          ###   ########lyon.fr   */
+/*   Created: 2021/10/06 16:12:13 by agirona           #+#    #+#             */
+/*   Updated: 2021/10/06 16:47:42 by agirona          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	get_last_element(t_stack *stack)
+void	print_instruction(t_inst *list)
 {
-	t_element	*current;
+	t_inst_element	*current;
 
-	current = stack->first;
-	stack->before_last = NULL;
-	stack->last = NULL;
+	current = list->first;
 	while (current != NULL)
 	{
-		if (current->next != NULL)
-		{
-			if (stack->len > 1 && current->next->next == NULL)
-				stack->before_last = current;
-		}
-		stack->last = current;
+		ft_putstr(current->str);
 		current = current->next;
 	}
 }
 
-void	delete_element(t_element *element)
+void	delete_inst_element(t_inst_element *element)
 {
 	if (element)
 	{
@@ -40,37 +33,36 @@ void	delete_element(t_element *element)
 	}
 }
 
-void	*create_element(int content)
+void	*create_inst_element(char *content)
 {
-	t_element	*new;
+	t_inst_element	*new;
 
 	new = NULL;
 	new = malloc(sizeof(*new));
 	if (new == NULL)
 		return (NULL);
-	new->value = content;
+	new->str = content;
 	new->next = NULL;
 	return (new);
 }
 
-int	init_stack(t_stack *list, int argc, char **argv)
+int	add_list(t_inst *list, char *str)
 {
-	int			i;
-	t_element	*new;
-	t_element	*current;
+	t_inst_element	*new;
+	t_inst_element	*current;
 
-	i = 2;
-	current = list->first;
-	list->last = NULL;
-	list->before_last = NULL;
-	while (i < argc)
+	new = create_inst_element(str);
+	if (new == NULL)
+		return (0);
+	list->len++;
+	if (list->first == NULL)
+		list->first = new;
+	else
 	{
-		new = create_element(ft_atoi(argv[i]));
-		if (new == NULL)
-			return (0);
+		current = list->first;
+		while (current->next != NULL)
+			current = current->next;
 		current->next = new;
-		current = current->next;
-		i++;
 	}
 	return (1);
 }

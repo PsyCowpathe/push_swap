@@ -6,7 +6,7 @@
 /*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 02:30:11 by agirona           #+#    #+#             */
-/*   Updated: 2021/10/06 16:07:25 by agirona          ###   ########lyon.fr   */
+/*   Updated: 2021/10/06 21:17:41 by agirona          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,25 +45,22 @@ typedef struct	s_inst
 
 //stack_utils
 
-void		*create_element(int content);
-void		delete_element(t_element *element);
-void		init_stack(t_stack *list, int argc, char **argv);
-void		print_stack(t_stack *list); //tmp
-void		get_last_element(t_stack *stack);
-int			delete_stack(t_stack *a_stack, t_stack *b_stack, t_inst *list, int ret);
+void	*create_element(int content);
+void	delete_element(t_element *element);
+int		init_stack(t_stack *list, int argc, char **argv);
+void	get_last_element(t_stack *stack);
 
 //swap_instruction
 
-int			swap(t_stack *a_stack, t_inst *list);
-int			push(t_stack *first_stack, t_stack *second_stack, t_inst *list);
-int			rotate(t_stack	*stack, t_inst *list);
-int			reverse_rotate(t_stack *stack, t_inst *list);
+int		swap(t_stack *a_stack, t_inst *list);
+int		push(t_stack *first_stack, t_stack *second_stack, t_inst *list);
+int		rotate(t_stack	*stack, t_inst *list);
+int		reverse_rotate(t_stack *stack, t_inst *list);
 
 //TMP
 
 void	print_data(t_stack *a_stack, t_stack *b_stack);
-int		is_sort(t_stack *stack);
-void	print_instruction(t_inst *list);
+void	print_stack(t_stack *list);
 
 //magic_sort
 
@@ -80,15 +77,31 @@ int		check_duplicate(int len, char **list);
 
 int		get_next_highter_value(t_stack *stack, int value);
 int		get_next_value(t_stack *stack, int value);
+int		second_get_next_value(t_stack *stack, int value, int *position);
 int		get_lower_value(t_stack *stack);
 int		select_pivot(t_stack *stack, int position);
 
-//stack_init.c
+//stack_init
 
 void	a_stack_inst(t_stack *stack);
 void	b_stack_inst(t_stack *stack);
 t_stack	*create_a_stack(int argc, char **argv);
 t_stack	*create_b_stack(void);
 t_inst	*create_inst_list(void);
+
+//instruction
+
+void	print_instruction(t_inst *list);
+void	delete_inst_element(t_inst_element *element);
+void	*create_inst_element(char *content);
+int		add_list(t_inst *list, char *str);
+
+//utility
+
+int		is_sort(t_stack *stack);
+
+//delete_stack
+
+int	delete_stack(t_stack *a_stack, t_stack *b_stack, t_inst *list, int ret);
 
 #endif
