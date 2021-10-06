@@ -6,13 +6,13 @@
 /*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 17:25:58 by agirona           #+#    #+#             */
-/*   Updated: 2021/10/05 21:21:35 by agirona          ###   ########lyon.fr   */
+/*   Updated: 2021/10/06 16:02:10 by agirona          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	rush_b(t_stack *a_stack, t_stack *b_stack, t_inst_list *list)
+void	rush_b(t_stack *a_stack, t_stack *b_stack, t_inst *list)
 {
 	int			i;
 	float		percent;
@@ -55,7 +55,7 @@ void	rush_b(t_stack *a_stack, t_stack *b_stack, t_inst_list *list)
 	}
 }
 
-void	counter_b(t_stack *a_stack, t_stack *b_stack, t_inst_list *list)
+void	counter_b(t_stack *a_stack, t_stack *b_stack, t_inst *list)
 {
 	int			position;
 	int			i;
@@ -93,7 +93,7 @@ void	counter_b(t_stack *a_stack, t_stack *b_stack, t_inst_list *list)
 	}
 }
 
-void	mini_sort(t_stack *stack, t_inst_list *list)
+void	mini_sort(t_stack *stack, t_inst *list)
 {
 	if (stack->len == 2)
 		swap(stack, list);

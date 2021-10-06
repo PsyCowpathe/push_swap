@@ -6,13 +6,13 @@
 /*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 17:21:09 by agirona           #+#    #+#             */
-/*   Updated: 2021/10/05 21:21:34 by agirona          ###   ########lyon.fr   */
+/*   Updated: 2021/10/06 16:02:22 by agirona          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	print_instruction(t_inst_list *list)
+void	print_instruction(t_inst *list)
 {
 	t_inst_element *current;
 

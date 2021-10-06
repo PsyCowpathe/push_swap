@@ -6,7 +6,7 @@
 /*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 01:23:33 by agirona           #+#    #+#             */
-/*   Updated: 2021/10/05 21:21:36 by agirona          ###   ########lyon.fr   */
+/*   Updated: 2021/10/06 16:01:47 by agirona          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	*create_inst_element(char *content)
 	return (new);
 }
 
-void	add_list(t_inst_list *list, char *str)
+void	add_list(t_inst *list, char *str)
 {
 	t_inst_element	*new;
 	t_inst_element	*current;
@@ -40,7 +40,7 @@ void	add_list(t_inst_list *list, char *str)
 	}
 }
 
-int		swap(t_stack *stack, t_inst_list *list)
+int		swap(t_stack *stack, t_inst *list)
 {
 	t_element	*new_first;
 	t_element	*tmp;
@@ -57,7 +57,7 @@ int		swap(t_stack *stack, t_inst_list *list)
 	return (1);
 }
 
-int		push(t_stack *sender, t_stack *receiver, t_inst_list *list)
+int		push(t_stack *sender, t_stack *receiver, t_inst *list)
 {
 	t_element	*tmp;
 
@@ -77,7 +77,7 @@ int		push(t_stack *sender, t_stack *receiver, t_inst_list *list)
 	return (1);
 }
 
-int		rotate(t_stack *stack, t_inst_list *list)
+int		rotate(t_stack *stack, t_inst *list)
 {
 	t_element	*tmp;
 
@@ -92,7 +92,7 @@ int		rotate(t_stack *stack, t_inst_list *list)
 	return (1);
 }
 
-int		reverse_rotate(t_stack *stack, t_inst_list *list)
+int		reverse_rotate(t_stack *stack, t_inst *list)
 {
 	if (stack->len <= 1)
 		return (0);	

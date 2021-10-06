@@ -6,7 +6,7 @@
 /*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 02:30:11 by agirona           #+#    #+#             */
-/*   Updated: 2021/10/05 21:21:34 by agirona          ###   ########lyon.fr   */
+/*   Updated: 2021/10/06 16:05:54 by agirona          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ typedef struct	s_inst_element
 	struct s_inst_element	*next;
 }				t_inst_element;
 
-typedef struct	s_inst_list
+typedef struct	s_inst
 {
 	t_inst_element	*first;
 	int				len;
-}				t_inst_list;
+}				t_inst;
 
 //stack_utils
 
@@ -50,26 +50,26 @@ void		delete_element(t_element *element);
 void		init_stack(t_stack *list, int argc, char **argv);
 void		print_stack(t_stack *list); //tmp
 void		get_last_element(t_stack *stack);
-void		delete_stack(t_stack *a_stack, t_stack *b_stack, t_inst_list *list);
+int			delete_stack(t_stack *a_stack, t_stack *b_stack, t_inst *list, int ret);
 
 //swap_instruction
 
-int			swap(t_stack *a_stack, t_inst_list *list);
-int			push(t_stack *first_stack, t_stack *second_stack, t_inst_list *list);
-int			rotate(t_stack	*stack, t_inst_list *list);
-int			reverse_rotate(t_stack *stack, t_inst_list *list);
+int			swap(t_stack *a_stack, t_inst *list);
+int			push(t_stack *first_stack, t_stack *second_stack, t_inst *list);
+int			rotate(t_stack	*stack, t_inst *list);
+int			reverse_rotate(t_stack *stack, t_inst *list);
 
 //TMP
 
 void	print_data(t_stack *a_stack, t_stack *b_stack);
 int		is_sort(t_stack *stack);
-void	print_instruction(t_inst_list *list);
+void	print_instruction(t_inst *list);
 
 //magic_sort
 
-void	rush_b(t_stack *a_stack, t_stack *b_stack, t_inst_list *list);
-void	counter_b(t_stack *a_stack, t_stack *b_stack, t_inst_list *list);
-void	mini_sort(t_stack *stack, t_inst_list *list);
+void	rush_b(t_stack *a_stack, t_stack *b_stack, t_inst *list);
+void	counter_b(t_stack *a_stack, t_stack *b_stack, t_inst *list);
+void	mini_sort(t_stack *stack, t_inst *list);
 
 //parsing
 
@@ -82,5 +82,13 @@ int		get_next_highter_value(t_stack *stack, int value);
 int		get_next_value(t_stack *stack, int value);
 int		get_lower_value(t_stack *stack);
 int		select_pivot(t_stack *stack, int position);
+
+//stack_init.c
+
+void	a_stack_inst(t_stack *stack);
+void	b_stack_inst(t_stack *stack);
+t_stack	*create_a_stack(int argc, char **argv);
+t_stack	*create_b_stack(void);
+t_inst	*create_inst_list(void);
 
 #endif
