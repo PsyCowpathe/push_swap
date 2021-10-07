@@ -6,7 +6,7 @@
 /*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 02:30:11 by agirona           #+#    #+#             */
-/*   Updated: 2021/10/06 21:17:41 by agirona          ###   ########lyon.fr   */
+/*   Updated: 2021/10/07 20:14:50 by agirona          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,11 @@ typedef struct s_stack
 	char		**inst;
 	t_element	*first;
 	t_element	*last;
-	t_element	*before_last;
+	t_element	*before;
 	int			len;
 	int			pivot;
 	int			position;
+	float		percent;
 }				t_stack;
 
 typedef struct	s_inst_element
@@ -71,14 +72,14 @@ void	mini_sort(t_stack *stack, t_inst *list);
 //parsing
 
 int		check_int(int len, char **list);
-int		check_duplicate(int len, char **list);
+int		check_duplicate(t_stack *stack);
 
 //stack_finder
 
-int		get_next_highter_value(t_stack *stack, int value);
-int		get_next_value(t_stack *stack, int value);
-int		second_get_next_value(t_stack *stack, int value, int *position);
-int		get_lower_value(t_stack *stack);
+int		get_next_highter_value(t_stack *stack);
+int		get_next_value(t_stack *stack, int value, int *position);
+int		get_smaller_value(t_stack *stack);
+int		get_bigger_value(t_stack *stack, int *position);
 int		select_pivot(t_stack *stack, int position);
 
 //stack_init

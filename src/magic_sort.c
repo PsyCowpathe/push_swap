@@ -6,29 +6,47 @@
 /*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 17:25:58 by agirona           #+#    #+#             */
-/*   Updated: 2021/10/06 21:17:40 by agirona          ###   ########lyon.fr   */
+/*   Updated: 2021/10/07 20:14:49 by agirona          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+void	navigate(t_stack *a_stack, t_inst *list)
+{
+	int		position;
+
+	position = get_next_highter_value(a_stack);
+//	if (position == 2)
+//		swap(a_stack, list);
+	if (position < a_stack->len * 0.5)
+	{
+		while (position != 1)
+		{
+			rotate(a_stack, list);
+			position--;
+		}
+	}
+	else
+	{
+		while (position != a_stack->len + 1)
+		{
+			reverse_rotate(a_stack, list);
+			position++;
+		}
+	}
+}
+
 void	rush_b(t_stack *a_stack, t_stack *b_stack, t_inst *list)
 {
 	int			i;
-	float		percent;
 	t_element	*current;
-	int			pivot2;
-	int			position;
 
-	if (a_stack->len <= 100)
-		percent = 0.13125 * 3;
-	else
-		percent = 0.13125;
 	while (a_stack->len > 3)
 	{
-		a_stack->position = a_stack->len * percent;
+		a_stack->position = a_stack->len * a_stack->percent;
 		a_stack->pivot = select_pivot(a_stack, a_stack->position);
-		pivot2 = select_pivot(a_stack, a_stack->position * 0.5);
+		b_stack->pivot = select_pivot(a_stack, a_stack->position * 0.5);
 		i = 0;
 		while (i < a_stack->position && a_stack->position != 1)
 		{
@@ -36,24 +54,15 @@ void	rush_b(t_stack *a_stack, t_stack *b_stack, t_inst *list)
 			if (current->value <= a_stack->pivot)
 			{
 				push(a_stack, b_stack, list);
-				if (b_stack->first->value < pivot2)
+				if (b_stack->first->value < b_stack->pivot)
 					rotate(b_stack, list);
 				i++;
 			}
 			else
-			{
-				second_get_next_value(a_stack, get_lower_value(a_stack), &position);
-				if (position == 2)
-					swap(a_stack, list);
-				else if (position < a_stack->len * 0.5)
-					rotate(a_stack, list);
-				else
-					reverse_rotate(a_stack, list);
-			}
+				navigate(a_stack, list);
 		}
-		if (percent < 0.70)
-			percent += 0.195;
-		//print_data(a_stack, b_stack);
+		if (a_stack->percent < 0.70)
+			a_stack->percent += 0.0195;
 	}
 }
 
@@ -64,35 +73,54 @@ void	counter_b(t_stack *a_stack, t_stack *b_stack, t_inst *list)
 
 	while (b_stack->len != 0)
 	{
-		second_get_next_value(b_stack, a_stack->first->value, &position);
-		if (position == 2)
-		{
-			swap(b_stack, list);
-			//print_data(a_stack, b_stack);
-		}
-		else if (position < b_stack->len * 0.5)
+		get_bigger_value(b_stack, &position);
+		//if (position == 2)
+		//	swap(b_stack, list);
+		if (position < b_stack->len * 0.5)
 		{
 			i = 1;
-			while (i < position)
-			{
+			while (i++ < position)
 				rotate(b_stack, list);
-				//print_data(a_stack, b_stack);
-				i++;
-			}
 		}
 		else
 		{
 			i = b_stack->len + 1;
-			while (i > position && b_stack->len != 1)
-			{
+			while (i-- > position && b_stack->len != 1)
 				reverse_rotate(b_stack, list);
-				//print_data(a_stack, b_stack);
-				i--;
-			}
 		}
 		push(b_stack, a_stack, list);
-		//print_data(a_stack, b_stack);
 	}
+}
+
+int	low_low(t_stack *stack, t_inst *list)
+{
+	if (stack->before->value < stack->first->value
+		&& stack->before->value < stack->last->value)
+	{
+		if (stack->first->value < stack->last->value)
+			swap(stack, list);
+		else
+			rotate(stack, list);
+		return (1);
+	}
+	return (0);
+}
+
+int	hight_hight(t_stack *stack, t_inst *list)
+{
+	if (stack->before->value > stack->first->value
+		&& stack->before->value > stack->last->value)
+	{
+		if (stack->first->value < stack->last->value)
+		{
+			reverse_rotate(stack, list);
+			swap(stack, list);
+		}
+		else
+			reverse_rotate(stack, list);
+		return (1);
+	}
+	return (0);
 }
 
 void	mini_sort(t_stack *stack, t_inst *list)
@@ -101,28 +129,13 @@ void	mini_sort(t_stack *stack, t_inst *list)
 		swap(stack, list);
 	else
 	{
-		if (stack->before_last->value < stack->first->value && stack->before_last->value < stack->last->value)
+		if (low_low(stack, list) == 0)
 		{
-			if (stack->first->value < stack->last->value)
-				swap(stack, list);
-			else
-				rotate(stack, list);
-		}
-		else if (stack->before_last->value > stack->first->value && stack->before_last->value > stack->last->value)
-		{
-			if (stack->first->value < stack->last->value)
+			if (hight_hight(stack, list) == 0)
 			{
-				reverse_rotate(stack, list);
 				swap(stack, list);
-			}
-			else
 				reverse_rotate(stack, list);
-
-		}
-		else
-		{
-			swap(stack, list);
-			reverse_rotate(stack, list);
+			}
 		}
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 17:21:09 by agirona           #+#    #+#             */
-/*   Updated: 2021/10/06 16:22:53 by agirona          ###   ########lyon.fr   */
+/*   Updated: 2021/10/07 19:20:59 by agirona          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void	print_two(t_stack *b_stack)
 	ft_putstr("   Len = ");
 	ft_putnbr(b_stack->len);
 	ft_putstr(" before = ");
-	if (b_stack->before_last != NULL)
-		ft_putnbr(b_stack->before_last->value);
+	if (b_stack->before != NULL)
+		ft_putnbr(b_stack->before->value);
 	else
 		ft_putstr("NULL");
 	ft_putstr("   Last = ");
@@ -56,8 +56,8 @@ void	print_data(t_stack *a_stack, t_stack *b_stack)
 	ft_putstr("   Len = ");
 	ft_putnbr(a_stack->len);
 	ft_putstr(" before = ");
-	if (a_stack->before_last != NULL)
-		ft_putnbr(a_stack->before_last->value);
+	if (a_stack->before != NULL)
+		ft_putnbr(a_stack->before->value);
 	else
 		ft_putstr("NULL");
 	ft_putstr("   Last = ");

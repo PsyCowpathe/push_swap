@@ -6,101 +6,37 @@
 /*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 17:25:10 by agirona           #+#    #+#             */
-/*   Updated: 2021/10/06 21:17:39 by agirona          ###   ########lyon.fr   */
+/*   Updated: 2021/10/07 20:14:51 by agirona          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	get_next_highter_value(t_stack *stack, int value)
+int	get_next_highter_value(t_stack *stack)
 {
-	int			find;
-	int			position;
-	int			i;
 	t_element	*current;
+	int			i;
+	int			position;
 
-	find = 0;
-	position = 0;
-	i = 1;
 	current = stack->first;
+	i = 1;
 	while (current != NULL)
 	{
-		if (current->value < value)
+		if (current->value <= stack->pivot)
 		{
-			find = current->value;
-			current = NULL;
 			position = i;
+			current = NULL;
 		}
 		else
-			current = current->next;
-		i++;
-	}
-	current = stack->first;
-	i = 1;
-	while (current != NULL)
-	{
-		if (current->value > find && current->value < value)
 		{
-			find = current->value;
-			position = i;
+			current = current->next;
+			i++;
 		}
-		current = current->next;
-		i++;
 	}
 	return (position);
 }
 
-int	second_get_next_value(t_stack *stack, int value, int *position)
-{
-	int			find;
-	int			i;
-	t_element	*current;
-
-	find = 0;
-	*position = -1;
-	current = stack->first;
-	i = 1;
-	while (current != NULL)
-	{
-		if (current->value > find && current->value <= value)
-		{
-			find = current->value;
-			*position = i;
-		}
-		current = current->next;
-		i++;
-	}
-	return (find);
-}
-
-
-int	get_next_value(t_stack *stack, int value)
-{
-	t_element	*current;
-	int			find;
-
-	current = stack->first;
-	while (current != NULL)
-	{
-		if (current->value > value)
-		{
-			find = current->value;
-			current = NULL;
-		}
-		else
-			current = current->next;
-	}
-	current = stack->first;
-	while (current != NULL)
-	{
-		if (current->value < find && current->value > value)
-			find = current->value;
-		current = current->next;
-	}
-	return (find);
-}
-
-int	get_lower_value(t_stack *stack)
+int	get_smaller_value(t_stack *stack)
 {
 	t_element	*current;
 	int			lower;
@@ -116,16 +52,66 @@ int	get_lower_value(t_stack *stack)
 	return (lower);
 }
 
+int	get_bigger_value(t_stack *stack, int *position)
+{
+	t_element	*current;
+	int			highter;
+	int			i;
+
+	current = stack->first;
+	highter = stack->first->value;
+	i = 1;
+	if (position)
+		*position = -1;
+	while (current != NULL)
+	{
+		if (current->value > highter)
+		{
+			highter = current->value;
+			if (position)
+				*position = i;
+		}
+		current = current->next;
+		i++;
+	}
+	return (highter);
+}
+
+int	get_next_value(t_stack *stack, int value, int *position)
+{
+	t_element	*current;
+	int			find;
+	int			i;
+
+	current = stack->first;
+	find = get_bigger_value(stack, NULL);
+	if (position)
+		*position = -1;
+	i = 1;
+	while (current != NULL)
+	{
+		if (current->value < find && current->value > value)
+		{
+			find = current->value;
+			if (position)
+				*position = i;
+		}
+		current = current->next;
+		i++;
+	}
+	return (find);
+}
+
 int	select_pivot(t_stack *stack, int position)
 {
 	int			pivot;
 	int			i;
 
 	i = 1;
-	pivot = get_lower_value(stack);
+	pivot = get_smaller_value(stack);
 	while (i < position)
 	{
-		pivot = get_next_value(stack, pivot); //a patch
+		pivot = get_next_value(stack, pivot, NULL);
 		i++;
 	}
 	return (pivot);

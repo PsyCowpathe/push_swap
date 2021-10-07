@@ -6,7 +6,7 @@
 /*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:03:15 by agirona           #+#    #+#             */
-/*   Updated: 2021/10/06 16:29:22 by agirona          ###   ########lyon.fr   */
+/*   Updated: 2021/10/07 20:14:49 by agirona          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,10 @@ t_stack	*create_a_stack(int argc, char **argv)
 	if (init_stack(a_stack, argc, argv) == 0)
 		return (NULL);
 	a_stack->len = argc - 1;
+	if (a_stack->len <= 100)
+		a_stack->percent = 0.13125 * 3;
+	else
+		a_stack->percent = 0.13125;
 	get_last_element(a_stack);
 	a_stack_inst(a_stack);
 	return (a_stack);
@@ -61,7 +65,7 @@ t_stack	*create_b_stack(void)
 		return (NULL);
 	b_stack->first = NULL;
 	b_stack->last = NULL;
-	b_stack->before_last = NULL;
+	b_stack->before = NULL;
 	b_stack->len = 0;
 	b_stack_inst(b_stack);
 	return (b_stack);

@@ -6,7 +6,7 @@
 /*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 01:23:33 by agirona           #+#    #+#             */
-/*   Updated: 2021/10/06 16:16:57 by agirona          ###   ########lyon.fr   */
+/*   Updated: 2021/10/07 20:14:50 by agirona          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	reverse_rotate(t_stack *stack, t_inst *list)
 {
 	if (stack->len <= 1)
 		return (0);
-	stack->before_last->next = NULL;
+	stack->before->next = NULL;
 	stack->last->next = stack->first;
 	stack->first = stack->last;
 	get_last_element(stack);

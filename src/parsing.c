@@ -6,33 +6,28 @@
 /*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 17:26:58 by agirona           #+#    #+#             */
-/*   Updated: 2021/10/06 16:47:28 by agirona          ###   ########lyon.fr   */
+/*   Updated: 2021/10/07 20:14:51 by agirona          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	check_duplicate(int len, char **list)
+int	check_duplicate(t_stack *stack)
 {
-	int		i;
-	int		c;
+	t_element	*current;
+	t_element	*verif;
 
-	i = 0;
-	while (i < len)
+	current = stack->first;
+	while (current != NULL)
 	{
-		c = 0;
-		while (c < len)
+		verif = stack->first;
+		while (verif != NULL)
 		{
-			if (ft_strcmp(list[c], list[i]) == 0 && c != i)
-			{
-				ft_putstr("Error\nSeveral ");
-				ft_putstr(list[c]);
-				ft_putstr(" in program argument.");
+			if (verif != current && verif->value == current->value)
 				return (0);
-			}
-			c++;
+			verif = verif->next;
 		}
-		i++;
+		current = current->next;
 	}
 	return (1);
 }
