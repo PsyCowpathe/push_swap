@@ -6,7 +6,7 @@
 /*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:12:13 by agirona           #+#    #+#             */
-/*   Updated: 2021/10/07 20:14:52 by agirona          ###   ########lyon.fr   */
+/*   Updated: 2021/10/07 21:09:31 by agirona          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,13 @@ void	print_instruction(t_inst *list)
 	current = list->first;
 	while (current != NULL)
 	{
-		ft_putstr(current->str);
+		if (current->next != NULL && ft_strncmp(current->str, "rb\n", 4) == 0 && ft_strncmp(current->next->str, "ra\n", 4) == 0)
+		{
+			ft_putstr("rr\n");
+			current = current->next;
+		}
+		else
+			ft_putstr(current->str);
 		current = current->next;
 	}
 }
