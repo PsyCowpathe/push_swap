@@ -6,7 +6,7 @@
 /*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 17:26:58 by agirona           #+#    #+#             */
-/*   Updated: 2021/10/07 20:14:51 by agirona          ###   ########lyon.fr   */
+/*   Updated: 2021/10/08 17:19:24 by agirona          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,22 @@ int	check_duplicate(t_stack *stack)
 	return (1);
 }
 
+int	only_num(char *str)
+{
+	int		i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (i == 0 && (str[i] == '-' || str[i] == '+'))
+			i++;
+		if (str[i] < '0' || str[i] > '9')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 int	check_int(int len, char **list)
 {
 	int			i;
@@ -44,9 +60,10 @@ int	check_int(int len, char **list)
 		c = 0;
 		while (list[i][c])
 		{
-			if ((list[i][c] == '-' && ft_isdigit(list[i][c + 1]) == 0)
-				|| (c != 0 && ft_isdigit(list[i][c] == 0)))
-				return (0);
+			if (ft_isdigit(list[i][c]) == 0)
+				if (!((list[i][0] == '-' || list[i][0] == '+')
+					&& only_num(list[i]) == 1))
+					return (0);
 			c++;
 		}
 		if (c == 0)

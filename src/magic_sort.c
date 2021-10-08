@@ -6,7 +6,7 @@
 /*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 17:25:58 by agirona           #+#    #+#             */
-/*   Updated: 2021/10/07 20:14:49 by agirona          ###   ########lyon.fr   */
+/*   Updated: 2021/10/08 16:24:26 by agirona          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ void	navigate(t_stack *a_stack, t_inst *list)
 	int		position;
 
 	position = get_next_highter_value(a_stack);
-//	if (position == 2)
-//		swap(a_stack, list);
 	if (position < a_stack->len * 0.5)
 	{
 		while (position != 1)
@@ -74,8 +72,6 @@ void	counter_b(t_stack *a_stack, t_stack *b_stack, t_inst *list)
 	while (b_stack->len != 0)
 	{
 		get_bigger_value(b_stack, &position);
-		//if (position == 2)
-		//	swap(b_stack, list);
 		if (position < b_stack->len * 0.5)
 		{
 			i = 1;
@@ -89,53 +85,5 @@ void	counter_b(t_stack *a_stack, t_stack *b_stack, t_inst *list)
 				reverse_rotate(b_stack, list);
 		}
 		push(b_stack, a_stack, list);
-	}
-}
-
-int	low_low(t_stack *stack, t_inst *list)
-{
-	if (stack->before->value < stack->first->value
-		&& stack->before->value < stack->last->value)
-	{
-		if (stack->first->value < stack->last->value)
-			swap(stack, list);
-		else
-			rotate(stack, list);
-		return (1);
-	}
-	return (0);
-}
-
-int	hight_hight(t_stack *stack, t_inst *list)
-{
-	if (stack->before->value > stack->first->value
-		&& stack->before->value > stack->last->value)
-	{
-		if (stack->first->value < stack->last->value)
-		{
-			reverse_rotate(stack, list);
-			swap(stack, list);
-		}
-		else
-			reverse_rotate(stack, list);
-		return (1);
-	}
-	return (0);
-}
-
-void	mini_sort(t_stack *stack, t_inst *list)
-{
-	if (stack->len == 2)
-		swap(stack, list);
-	else
-	{
-		if (low_low(stack, list) == 0)
-		{
-			if (hight_hight(stack, list) == 0)
-			{
-				swap(stack, list);
-				reverse_rotate(stack, list);
-			}
-		}
 	}
 }

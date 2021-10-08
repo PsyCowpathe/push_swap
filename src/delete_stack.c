@@ -6,7 +6,7 @@
 /*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:31:24 by agirona           #+#    #+#             */
-/*   Updated: 2021/10/06 16:47:14 by agirona          ###   ########lyon.fr   */
+/*   Updated: 2021/10/08 17:19:25 by agirona          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	clean_astack(t_stack *a_stack)
 {
 	t_element		*current;
+	int				i;
 
 	current = a_stack->first;
 	while (current != NULL)
@@ -23,12 +24,20 @@ void	clean_astack(t_stack *a_stack)
 		delete_element(a_stack->first);
 		a_stack->first = current;
 	}
+	i = 0;
+	if (a_stack->inst != NULL)
+	{
+		while (i < 4)
+			free(a_stack->inst[i++]);
+		free(a_stack->inst);
+	}
 	free(a_stack);
 }
 
 void	clean_bstack(t_stack *b_stack)
 {
 	t_element		*current;
+	int				i;
 
 	current = b_stack->first;
 	while (current != NULL)
@@ -36,6 +45,13 @@ void	clean_bstack(t_stack *b_stack)
 		current = current->next;
 		delete_element(b_stack->first);
 		b_stack->first = current;
+	}
+	i = 0;
+	if (b_stack->inst != NULL)
+	{
+		while (i < 4)
+			free(b_stack->inst[i++]);
+		free(b_stack->inst);
 	}
 	free(b_stack);
 }

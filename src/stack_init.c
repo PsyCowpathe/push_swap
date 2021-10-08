@@ -6,34 +6,66 @@
 /*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:03:15 by agirona           #+#    #+#             */
-/*   Updated: 2021/10/07 20:14:49 by agirona          ###   ########lyon.fr   */
+/*   Updated: 2021/10/08 17:19:24 by agirona          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	a_stack_inst(t_stack *stack)
+int	a_stack_inst(t_stack *stack)
 {
 	int		i;
 
 	i = 0;
 	stack->inst = malloc(sizeof(char *) * 4);
+	if (stack->inst == NULL)
+		return (0);
 	stack->inst[0] = ft_strdup("sa\n");
 	stack->inst[1] = ft_strdup("pa\n");
 	stack->inst[2] = ft_strdup("ra\n");
 	stack->inst[3] = ft_strdup("rra\n");
+	while (i < 4)
+	{
+		if (stack->inst[i] == NULL)
+		{
+			i = 0;
+			while (i < 4)
+				free(stack->inst[i++]);
+			free(stack->inst);
+			stack->inst = NULL;
+			return (0);
+		}
+		i++;
+	}
+	return (1);
 }
 
-void	b_stack_inst(t_stack *stack)
+int	b_stack_inst(t_stack *stack)
 {
 	int		i;
 
 	i = 0;
 	stack->inst = malloc(sizeof(char *) * 4);
+	if (stack->inst == NULL)
+		return (0);
 	stack->inst[0] = ft_strdup("sb\n");
 	stack->inst[1] = ft_strdup("pb\n");
 	stack->inst[2] = ft_strdup("rb\n");
 	stack->inst[3] = ft_strdup("rrb\n");
+	while (i < 4)
+	{
+		if (stack->inst[i] == NULL)
+		{
+			i = 0;
+			while (i < 4)
+				free(stack->inst[i++]);
+			free(stack->inst);
+			stack->inst = NULL;
+			return (0);
+		}
+		i++;
+	}
+	return (1);
 }
 
 t_stack	*create_a_stack(int argc, char **argv)
@@ -52,7 +84,6 @@ t_stack	*create_a_stack(int argc, char **argv)
 	else
 		a_stack->percent = 0.13125;
 	get_last_element(a_stack);
-	a_stack_inst(a_stack);
 	return (a_stack);
 }
 
@@ -67,7 +98,6 @@ t_stack	*create_b_stack(void)
 	b_stack->last = NULL;
 	b_stack->before = NULL;
 	b_stack->len = 0;
-	b_stack_inst(b_stack);
 	return (b_stack);
 }
 

@@ -6,7 +6,7 @@
 /*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 02:30:11 by agirona           #+#    #+#             */
-/*   Updated: 2021/10/07 20:14:50 by agirona          ###   ########lyon.fr   */
+/*   Updated: 2021/10/08 17:19:25 by agirona          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ void	print_stack(t_stack *list);
 
 void	rush_b(t_stack *a_stack, t_stack *b_stack, t_inst *list);
 void	counter_b(t_stack *a_stack, t_stack *b_stack, t_inst *list);
-void	mini_sort(t_stack *stack, t_inst *list);
 
 //parsing
 
@@ -84,8 +83,8 @@ int		select_pivot(t_stack *stack, int position);
 
 //stack_init
 
-void	a_stack_inst(t_stack *stack);
-void	b_stack_inst(t_stack *stack);
+int		a_stack_inst(t_stack *stack);
+int		b_stack_inst(t_stack *stack);
 t_stack	*create_a_stack(int argc, char **argv);
 t_stack	*create_b_stack(void);
 t_inst	*create_inst_list(void);
@@ -103,6 +102,10 @@ int		is_sort(t_stack *stack);
 
 //delete_stack
 
-int	delete_stack(t_stack *a_stack, t_stack *b_stack, t_inst *list, int ret);
+int		delete_stack(t_stack *a_stack, t_stack *b_stack, t_inst *list, int ret);
+
+//mini_sort
+
+void	mini_sort(t_stack *stack, t_inst *list);
 
 #endif
