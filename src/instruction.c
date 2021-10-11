@@ -6,7 +6,7 @@
 /*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:12:13 by agirona           #+#    #+#             */
-/*   Updated: 2021/10/08 16:22:53 by agirona          ###   ########lyon.fr   */
+/*   Updated: 2021/10/11 15:51:55 by agirona          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	*create_inst_element(char *content)
 {
 	t_inst_element	*new;
 
-	new = NULL;
 	new = malloc(sizeof(*new));
 	if (new == NULL)
 		return (NULL);

@@ -6,7 +6,7 @@
 #    By: agirona <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/09 02:21:08 by agirona           #+#    #+#              #
-#    Updated: 2021/10/08 17:19:26 by agirona          ###   ########lyon.fr    #
+#    Updated: 2021/10/11 14:01:04 by agirona          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = push_swap
 
 SRCS = push_swap.c swap_instruction.c stack_utils.c parsing.c stack_finder.c \
 	   magic_sort.c stack_init.c utility.c instruction.c delete_stack.c \
-	   mini_sort.c TMP_debug.c
+	   mini_sort.c
 
 SRCS_DIR = src
 

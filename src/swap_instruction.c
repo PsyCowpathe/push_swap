@@ -6,7 +6,7 @@
 /*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 01:23:33 by agirona           #+#    #+#             */
-/*   Updated: 2021/10/07 20:14:50 by agirona          ###   ########lyon.fr   */
+/*   Updated: 2021/10/11 15:51:55 by agirona          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ int	swap(t_stack *stack, t_inst *list)
 	stack->first = new_first;
 	get_last_element(stack);
 	if (add_list(list, stack->inst[0]) == 0)
+	{
+		ft_putstr("Error\n");
 		return (0);
+	}
 	return (1);
 }
 
@@ -46,8 +49,11 @@ int	push(t_stack *sender, t_stack *receiver, t_inst *list)
 	sender->len--;
 	get_last_element(receiver);
 	get_last_element(sender);
-	if (add_list(list, receiver->inst[1]))
+	if (add_list(list, receiver->inst[1]) == 0)
+	{
+		ft_putstr("Error\n");
 		return (0);
+	}
 	return (1);
 }
 
@@ -63,7 +69,10 @@ int	rotate(t_stack *stack, t_inst *list)
 	stack->first = tmp;
 	get_last_element(stack);
 	if (add_list(list, stack->inst[2]) == 0)
+	{
+		ft_putstr("Error\n");
 		return (0);
+	}
 	return (1);
 }
 
@@ -76,6 +85,9 @@ int	reverse_rotate(t_stack *stack, t_inst *list)
 	stack->first = stack->last;
 	get_last_element(stack);
 	if (add_list(list, stack->inst[3]) == 0)
+	{
+		ft_putstr("Error\n");
 		return (0);
+	}
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 02:25:36 by agirona           #+#    #+#             */
-/*   Updated: 2021/10/08 17:19:23 by agirona          ###   ########lyon.fr   */
+/*   Updated: 2021/10/11 15:51:58 by agirona          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,6 @@ int	sorting(t_stack *a_stack, t_stack *b_stack, t_inst *list)
 		mini_sort(a_stack, list);
 	counter_b(a_stack, b_stack, list);
 	print_instruction(list);
-	if (is_sort(a_stack) == 1)
-		ft_putstr("DONE");
-	else
-		ft_putstr("FAIL");
 	return (delete_stack(a_stack, b_stack, list, 1));
 }
 

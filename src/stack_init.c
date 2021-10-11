@@ -6,7 +6,7 @@
 /*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:03:15 by agirona           #+#    #+#             */
-/*   Updated: 2021/10/08 17:19:24 by agirona          ###   ########lyon.fr   */
+/*   Updated: 2021/10/11 15:51:57 by agirona          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,10 @@ t_stack	*create_a_stack(int argc, char **argv)
 		return (NULL);
 	a_stack->first = create_element(ft_atoi(argv[1]));
 	if (init_stack(a_stack, argc, argv) == 0)
+	{
+		free(a_stack);
 		return (NULL);
+	}
 	a_stack->len = argc - 1;
 	if (a_stack->len <= 100)
 		a_stack->percent = 0.13125 * 3;

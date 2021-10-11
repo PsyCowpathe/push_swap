@@ -6,7 +6,7 @@
 /*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 02:30:11 by agirona           #+#    #+#             */
-/*   Updated: 2021/10/08 17:19:25 by agirona          ###   ########lyon.fr   */
+/*   Updated: 2021/10/11 14:01:27 by agirona          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ typedef struct s_stack
 	float		percent;
 }				t_stack;
 
-typedef struct	s_inst_element
+typedef struct s_inst_element
 {
 	char					*str;
 	struct s_inst_element	*next;
 }				t_inst_element;
 
-typedef struct	s_inst
+typedef struct s_inst
 {
 	t_inst_element	*first;
 	int				len;
@@ -57,11 +57,6 @@ int		swap(t_stack *a_stack, t_inst *list);
 int		push(t_stack *first_stack, t_stack *second_stack, t_inst *list);
 int		rotate(t_stack	*stack, t_inst *list);
 int		reverse_rotate(t_stack *stack, t_inst *list);
-
-//TMP
-
-void	print_data(t_stack *a_stack, t_stack *b_stack);
-void	print_stack(t_stack *list);
 
 //magic_sort
 
