@@ -6,7 +6,7 @@
 /*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 17:25:10 by agirona           #+#    #+#             */
-/*   Updated: 2021/10/07 20:14:51 by agirona          ###   ########lyon.fr   */
+/*   Updated: 2021/10/12 20:08:32 by agirona          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	get_bigger_value(t_stack *stack, int *position)
 		*position = -1;
 	while (current != NULL)
 	{
-		if (current->value > highter)
+		if (current->value >= highter)
 		{
 			highter = current->value;
 			if (position)

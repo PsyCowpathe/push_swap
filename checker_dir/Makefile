@@ -5,16 +5,14 @@
 #                                                     +:+ +:+         +:+      #
 #    By: agirona <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/09/09 02:21:08 by agirona           #+#    #+#              #
-#    Updated: 2021/10/12 18:17:25 by agirona          ###   ########lyon.fr    #
+#    Created: 2021/10/12 17:43:47 by agirona           #+#    #+#              #
+#    Updated: 2021/10/12 18:17:27 by agirona          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = push_swap
+NAME = ../checker
 
-SRCS = push_swap.c swap_instruction.c stack_utils.c parsing.c stack_finder.c \
-	   magic_sort.c stack_init.c utility.c instruction.c delete_stack.c \
-	   mini_sort.c
+SRCS = checker.c delete_stack.c parsing.c stack_init.c swap_instruction.c
 
 SRCS_DIR = src
 
@@ -24,25 +22,22 @@ OBJS_DIR = obj
 
 OBJS_PATH = $(addprefix $(OBJS_DIR)/, $(OBJS))
 
-INC	= include
+INC = ../include
 
-LIBRARY = libft/libft.a
+LIBRARY = ../libft/libft.a
 
-CFLAGS	= -Wall -Wextra -Werror -I $(INC)
+CFLAGS = -Wall -Wextra -Werror -I $(INC)
 
-$(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c $(INC)/push_swap.h $(LIBRARY)
+$(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c $(INC)/checker.h $(LIBRARY)
 	gcc $(CFLAGS) -c $< -o $@
 
 all: create_obj_dir lib $(NAME)
 
 lib:
-			make -C ./libft
+			make -C ../libft
 
 $(NAME) :	$(OBJS_PATH)
 			gcc $(OBJS_PATH) $(LIBRARY) -o $(NAME)
-
-checker : 
-			make -C ./checker_dir
 
 create_obj_dir :
 			rm -f obj || true
@@ -50,13 +45,13 @@ create_obj_dir :
 
 clean:
 			rm -f $(OBJS_PATH)
-			make -C ./checker_dir clean
+			make -C ../libft clean
 
 fclean:		clean
 			rm -f $(NAME)
 			rm -rf obj
-			make -C ./checker_dir fclean
+			make -C ../libft fclean
 
 re:			fclean all
 
-.PHONY:		all lib create_obj_dir clean fclean re checker
+.PHONY:		all lib create_obj_dir clean fclean re

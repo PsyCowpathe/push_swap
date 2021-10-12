@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/10 01:23:33 by agirona           #+#    #+#             */
-/*   Updated: 2021/10/11 16:26:52 by agirona          ###   ########lyon.fr   */
+/*   Created: 2021/10/12 15:41:40 by agirona           #+#    #+#             */
+/*   Updated: 2021/10/12 17:41:27 by agirona          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "checker.h"
 
-int	swap(t_stack *stack, t_inst *list)
+int	swap(t_stack *stack)
 {
 	t_element	*new_first;
 	t_element	*tmp;
@@ -25,15 +25,10 @@ int	swap(t_stack *stack, t_inst *list)
 	new_first->next->next = tmp;
 	stack->first = new_first;
 	get_last_element(stack);
-	if (add_list(list, stack->inst[0]) == 0)
-	{
-		ft_putstr("Error\n");
-		return (0);
-	}
 	return (1);
 }
 
-int	push(t_stack *sender, t_stack *receiver, t_inst *list)
+int	push(t_stack *sender, t_stack *receiver)
 {
 	t_element	*tmp;
 
@@ -49,15 +44,10 @@ int	push(t_stack *sender, t_stack *receiver, t_inst *list)
 	sender->len--;
 	get_last_element(receiver);
 	get_last_element(sender);
-	if (add_list(list, receiver->inst[1]) == 0)
-	{
-		ft_putstr("Error\n");
-		return (0);
-	}
 	return (1);
 }
 
-int	rotate(t_stack *stack, t_inst *list)
+int	rotate(t_stack *stack)
 {
 	t_element	*tmp;
 
@@ -68,15 +58,10 @@ int	rotate(t_stack *stack, t_inst *list)
 	stack->last->next = stack->first;
 	stack->first = tmp;
 	get_last_element(stack);
-	if (add_list(list, stack->inst[2]) == 0)
-	{
-		ft_putstr("Error\n");
-		return (0);
-	}
 	return (1);
 }
 
-int	reverse_rotate(t_stack *stack, t_inst *list)
+int	reverse_rotate(t_stack *stack)
 {
 	if (stack->len <= 1)
 		return (0);
@@ -84,10 +69,5 @@ int	reverse_rotate(t_stack *stack, t_inst *list)
 	stack->last->next = stack->first;
 	stack->first = stack->last;
 	get_last_element(stack);
-	if (add_list(list, stack->inst[3]) == 0)
-	{
-		ft_putstr("Error\n");
-		return (0);
-	}
 	return (1);
 }
