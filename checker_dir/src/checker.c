@@ -6,13 +6,13 @@
 /*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 14:50:41 by agirona           #+#    #+#             */
-/*   Updated: 2021/10/12 18:07:53 by agirona          ###   ########lyon.fr   */
+/*   Updated: 2021/10/13 19:15:57 by agirona          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker.h"
 
-void	is_it_b(char *str, t_stack *a_stack, t_stack *b_stack)
+int	is_it_b(char *str, t_stack *a_stack, t_stack *b_stack)
 {
 	if (ft_strncmp(str, "pb", 2) == 0)
 		push(a_stack, b_stack);
@@ -27,9 +27,12 @@ void	is_it_b(char *str, t_stack *a_stack, t_stack *b_stack)
 		rotate(b_stack);
 		rotate(a_stack);
 	}
+	else
+		return (0);
+	return (1);
 }
 
-void	is_it_a(char *str, t_stack *a_stack, t_stack *b_stack)
+int	is_it_a(char *str, t_stack *a_stack, t_stack *b_stack)
 {
 	if (ft_strncmp(str, "pa", 2) == 0)
 		push(b_stack, a_stack);
@@ -40,19 +43,25 @@ void	is_it_a(char *str, t_stack *a_stack, t_stack *b_stack)
 	else if (ft_strncmp(str, "rra", 3) == 0)
 		reverse_rotate(a_stack);
 	else
-		is_it_b(str, a_stack, b_stack);
+		return (is_it_b(str, a_stack, b_stack));
+	return (1);
 }
 
-void	sir_yes_sir(t_stack *a_stack, t_stack *b_stack)
+int	sir_yes_sir(t_stack *a_stack, t_stack *b_stack)
 {
 	char	*tmp;
 
 	while (get_next_line(0, &tmp) == 1)
 	{
-		is_it_a(tmp, b_stack, a_stack);
+		if (is_it_a(tmp, b_stack, a_stack) == 0)
+		{
+			free(tmp);
+			return (0);
+		}
 		free(tmp);
 	}
 	free(tmp);
+	return (1);
 }
 
 int	checker(int argc, char **argv)
@@ -72,7 +81,8 @@ int	checker(int argc, char **argv)
 	b_stack = create_b_stack();
 	if (b_stack == NULL)
 		return (delete_stack(a_stack, b_stack, 0));
-	sir_yes_sir(a_stack, b_stack);
+	if (sir_yes_sir(a_stack, b_stack) == 0)
+		return (delete_stack(a_stack, b_stack, 0));
 	if (is_sort(a_stack) == 1)
 		ft_putstr("OK");
 	else
@@ -83,10 +93,7 @@ int	checker(int argc, char **argv)
 int	main(int argc, char **argv)
 {
 	if (argc == 1)
-	{
-		ft_puterror("Error\n");
 		return (0);
-	}
 	if (check_int(argc - 1, argv + 1) == 0)
 	{
 		ft_puterror("Error\n");
