@@ -6,7 +6,7 @@
 /*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 02:25:36 by agirona           #+#    #+#             */
-/*   Updated: 2021/10/11 17:35:42 by agirona          ###   ########lyon.fr   */
+/*   Updated: 2021/10/13 15:20:08 by agirona          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 
 int	sorting(t_stack *a_stack, t_stack *b_stack, t_inst *list)
 {
+	if (a_stack->len == 5)
+	{
+		high_five(a_stack, b_stack, list);
+		print_instruction(list);
+		return (delete_stack(a_stack, b_stack, list, 1));
+	}
 	rush_b(a_stack, b_stack, list);
 	if (is_sort(a_stack) == 0)
 		mini_sort(a_stack, list);
@@ -54,10 +60,7 @@ int	push_swap(int argc, char **argv)
 int	main(int argc, char **argv)
 {
 	if (argc == 1)
-	{
-		ft_putstr("Error\n");
 		return (0);
-	}
 	if (check_int(argc - 1, argv + 1) == 0)
 	{
 		ft_putstr("Error\n");

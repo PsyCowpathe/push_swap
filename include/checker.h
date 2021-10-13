@@ -6,11 +6,11 @@
 /*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 15:01:36 by agirona           #+#    #+#             */
-/*   Updated: 2021/10/12 17:56:47 by agirona          ###   ########lyon.fr   */
+/*   Updated: 2021/10/13 15:32:59 by agirona          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef	CHECKER_H
+#ifndef CHECKER_H
 # define CHECKER_H
 # include "../libft/libft.h"
 

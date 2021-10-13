@@ -6,7 +6,7 @@
 /*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 17:25:10 by agirona           #+#    #+#             */
-/*   Updated: 2021/10/12 20:08:32 by agirona          ###   ########lyon.fr   */
+/*   Updated: 2021/10/13 15:19:14 by agirona          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	get_bigger_value(t_stack *stack, int *position)
 	return (highter);
 }
 
-int	get_next_value(t_stack *stack, int value, int *position)
+int	get_next_value(t_stack *stack, long value, int *position)
 {
 	t_element	*current;
 	int			find;

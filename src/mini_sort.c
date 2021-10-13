@@ -6,7 +6,7 @@
 /*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 16:24:07 by agirona           #+#    #+#             */
-/*   Updated: 2021/10/11 15:51:56 by agirona          ###   ########lyon.fr   */
+/*   Updated: 2021/10/13 15:20:18 by agirona          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,29 @@ void	mini_sort(t_stack *stack, t_inst *list)
 			}
 		}
 	}
+}
+
+void	high_five(t_stack *a_stack, t_stack *b_stack, t_inst *list)
+{
+	int		position;
+	int		tmp;
+
+	while (a_stack->len > 3)
+	{
+		tmp = get_smaller_value(a_stack);
+		get_next_value(a_stack, (long)tmp - 1, &position);
+		if (position > a_stack->len * 0.5)
+			while (position++ < a_stack->len + 1)
+				reverse_rotate(a_stack, list);
+		else
+			while (position-- > 1)
+				rotate(a_stack, list);
+		push(a_stack, b_stack, list);
+	}
+	if (is_sort(a_stack) == 0)
+		mini_sort(a_stack, list);
+	if (b_stack->first->value < b_stack->first->next->value)
+		swap(b_stack, list);
+	push(b_stack, a_stack, list);
+	push(b_stack, a_stack, list);
 }

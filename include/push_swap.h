@@ -6,7 +6,7 @@
 /*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 02:30:11 by agirona           #+#    #+#             */
-/*   Updated: 2021/10/11 14:01:27 by agirona          ###   ########lyon.fr   */
+/*   Updated: 2021/10/13 15:33:02 by agirona          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int		check_duplicate(t_stack *stack);
 //stack_finder
 
 int		get_next_highter_value(t_stack *stack);
-int		get_next_value(t_stack *stack, int value, int *position);
+int		get_next_value(t_stack *stack, long value, int *position);
 int		get_smaller_value(t_stack *stack);
 int		get_bigger_value(t_stack *stack, int *position);
 int		select_pivot(t_stack *stack, int position);
@@ -102,5 +102,6 @@ int		delete_stack(t_stack *a_stack, t_stack *b_stack, t_inst *list, int ret);
 //mini_sort
 
 void	mini_sort(t_stack *stack, t_inst *list);
+void	high_five(t_stack *a_stack, t_stack *b_stack, t_inst *list);
 
 #endif

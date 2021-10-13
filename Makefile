@@ -6,7 +6,7 @@
 #    By: agirona <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/09 02:21:08 by agirona           #+#    #+#              #
-#    Updated: 2021/10/12 18:17:25 by agirona          ###   ########lyon.fr    #
+#    Updated: 2021/10/13 16:03:20 by agirona          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,19 +44,29 @@ $(NAME) :	$(OBJS_PATH)
 checker : 
 			make -C ./checker_dir
 
+checker_clean :
+			make -C ./checker_dir clean
+
+checker_fclean :
+			make -C ./checker_dir fclean
+checker_re :
+			make -C ./checker_dir re
+
 create_obj_dir :
 			rm -f obj || true
 			mkdir -p obj
 
 clean:
 			rm -f $(OBJS_PATH)
-			make -C ./checker_dir clean
+			make -C ./libft clean
 
-fclean:		clean
+fclean:
+			rm -f $(OBJS_PATH)
 			rm -f $(NAME)
 			rm -rf obj
-			make -C ./checker_dir fclean
+			make -C ./libft fclean
 
 re:			fclean all
 
-.PHONY:		all lib create_obj_dir clean fclean re checker
+.PHONY:		all lib create_obj_dir clean fclean re checker checker_clean \
+			checker_fclean checker_re

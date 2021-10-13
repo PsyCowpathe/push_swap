@@ -6,7 +6,7 @@
 /*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 16:33:25 by agirona           #+#    #+#             */
-/*   Updated: 2021/09/23 16:48:19 by agirona          ###   ########lyon.fr   */
+/*   Updated: 2021/10/13 14:48:50 by agirona          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	conv_check(const char *str, int i, int neg, int *isint)
 	{
 		res = res * 10 + str[i] - 48;
 		i++;
-		if (neg == 1 && res >= 214748364 && str[i] - 48 > 7 )
+		if (neg == 1 && res >= 214748364 && str[i] - 48 > 7)
 			*isint = 0;
 		else if (neg == -1 && res >= 214748364 && str[i] - 48 > 8)
 			*isint = 0;

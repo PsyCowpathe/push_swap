@@ -6,7 +6,7 @@
 #    By: agirona <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/12 17:43:47 by agirona           #+#    #+#              #
-#    Updated: 2021/10/12 18:17:27 by agirona          ###   ########lyon.fr    #
+#    Updated: 2021/10/13 16:03:18 by agirona          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,8 @@ clean:
 			rm -f $(OBJS_PATH)
 			make -C ../libft clean
 
-fclean:		clean
+fclean:
+			rm -f $(OBJS_PATH)
 			rm -f $(NAME)
 			rm -rf obj
 			make -C ../libft fclean
