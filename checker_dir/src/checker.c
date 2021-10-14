@@ -6,7 +6,7 @@
 /*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 14:50:41 by agirona           #+#    #+#             */
-/*   Updated: 2021/10/13 19:15:57 by agirona          ###   ########lyon.fr   */
+/*   Updated: 2021/10/14 19:29:54 by agirona          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	is_it_b(char *str, t_stack *a_stack, t_stack *b_stack)
 {
 	if (ft_strncmp(str, "pb", 2) == 0)
 		push(a_stack, b_stack);
-	else if (ft_strncmp(str, "sp", 2) == 0)
+	else if (ft_strncmp(str, "sb", 2) == 0)
 		swap(b_stack);
 	else if (ft_strncmp(str, "rb", 2) == 0)
 		rotate(b_stack);
@@ -53,7 +53,7 @@ int	sir_yes_sir(t_stack *a_stack, t_stack *b_stack)
 
 	while (get_next_line(0, &tmp) == 1)
 	{
-		if (is_it_a(tmp, b_stack, a_stack) == 0)
+		if (is_it_a(tmp, a_stack, b_stack) == 0)
 		{
 			free(tmp);
 			return (0);
