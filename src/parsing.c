@@ -6,7 +6,7 @@
 /*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 17:26:58 by agirona           #+#    #+#             */
-/*   Updated: 2021/10/13 14:52:34 by agirona          ###   ########lyon.fr   */
+/*   Updated: 2021/10/14 20:26:02 by agirona          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,28 +50,34 @@ int	only_num(char *str)
 
 int	check_int(int len, char **list)
 {
-	int			i;
-	int			c;
-	int			isint;
+	int		i;
+	int		c;
+	int		isint;
 
-	i = 0;
-	while (i < len)
+	i = -1;
+	while (++i < len)
 	{
 		c = 0;
 		while (list[i][c])
 		{
-			if (ft_isdigit(list[i][c]) == 0)
-				if (!((list[i][0] == '-' || list[i][0] == '+')
-					&& only_num(list[i]) == 1))
+			if (list[i][c] == ' ')
+				c++;
+			else if (list[i][c] == '-' || list[i][c] == '+' || ft_isdigit(list[i][c]) == 1)
+			{
+				ft_atoi_check(list[i] + c, &isint);
+				if (isint == 0)
 					return (0);
-			c++;
+				if ((list[i][c] == '-' || list[i][c] == '+') && ++c)
+					if (ft_isdigit(list[i][c]) == 0)
+						return (0);
+				while (ft_isdigit(list[i][c]) == 1)
+					c++;
+				if (list[i][c] != ' ' && list[i][c] != '\0')
+					return (0);
+			}
+			else if (list[i][c] != '\0')
+				return (0);
 		}
-		if (c == 0)
-			return (0);
-		ft_atoi_check(list[i], &isint);
-		if (isint == 0)
-			return (0);
-		i++;
 	}
 	return (1);
 }

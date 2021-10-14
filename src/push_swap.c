@@ -6,7 +6,7 @@
 /*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 02:25:36 by agirona           #+#    #+#             */
-/*   Updated: 2021/10/13 18:14:13 by agirona          ###   ########lyon.fr   */
+/*   Updated: 2021/10/14 20:13:18 by agirona          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,12 @@ int	main(int argc, char **argv)
 	if (check_int(argc - 1, argv + 1) == 0)
 	{
 		ft_putstr("Error\n");
-		return (0);
+		return (1);
 	}
 	if (push_swap(argc, argv) == 0)
 	{
 		ft_putstr("Error\n");
-		return (0);
+		return (1);
 	}
-	return (1);
+	return (0);
 }
