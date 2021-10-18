@@ -6,7 +6,7 @@
 /*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 17:26:58 by agirona           #+#    #+#             */
-/*   Updated: 2021/10/14 20:27:40 by agirona          ###   ########lyon.fr   */
+/*   Updated: 2021/10/18 20:46:08 by agirona          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,30 @@ int	only_num(char *str)
 	return (1);
 }
 
+int	check_format(char **list, int i, int *c)
+{
+	int		isint;
+
+	ft_atoi_check(list[i] + *c, &isint);
+	if (isint == 0)
+		return (0);
+	if ((list[i][*c] == '-' || list[i][*c] == '+'))
+	{
+		*c = *c + 1;
+		if (ft_isdigit(list[i][*c]) == 0)
+			return (0);
+	}
+	while (ft_isdigit(list[i][*c]) == 1)
+		*c = *c + 1;
+	if (list[i][*c] != ' ' && list[i][*c] != '\0')
+		return (0);
+	return (1);
+}
+
 int	check_int(int len, char **list)
 {
 	int		i;
 	int		c;
-	int		isint;
 
 	i = -1;
 	while (++i < len)
@@ -62,17 +81,10 @@ int	check_int(int len, char **list)
 		{
 			if (list[i][c] == ' ')
 				c++;
-			else if (list[i][c] == '-' || list[i][c] == '+' || ft_isdigit(list[i][c]) == 1)
+			else if (list[i][c] == '-' || list[i][c] == '+'
+				|| ft_isdigit(list[i][c]) == 1)
 			{
-				ft_atoi_check(list[i] + c, &isint);
-				if (isint == 0)
-					return (0);
-				if ((list[i][c] == '-' || list[i][c] == '+') && ++c)
-					if (ft_isdigit(list[i][c]) == 0)
-						return (0);
-				while (ft_isdigit(list[i][c]) == 1)
-					c++;
-				if (list[i][c] != ' ' && list[i][c] != '\0')
+				if (check_format(list, i, &c) == 0)
 					return (0);
 			}
 			else if (list[i][c] != '\0')

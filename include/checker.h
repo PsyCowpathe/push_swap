@@ -6,7 +6,7 @@
 /*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 15:01:36 by agirona           #+#    #+#             */
-/*   Updated: 2021/10/13 15:32:59 by agirona          ###   ########lyon.fr   */
+/*   Updated: 2021/10/18 20:47:16 by agirona          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ typedef struct s_stack
 
 //parsing
 
-void	ft_puterror(char *str);
 int		check_int(int len, char **list);
 int		check_duplicate(t_stack *stack);
 int		is_sort(t_stack *stack);
@@ -47,7 +46,6 @@ void	delete_element(t_element *element);
 t_stack	*create_b_stack(void);
 t_stack	*create_a_stack(int argc, char **argv);
 void	get_last_element(t_stack *stack);
-void	*create_element(int content);
 
 //swap_instruction
 
@@ -55,5 +53,10 @@ int		swap(t_stack *stack);
 int		push(t_stack *sender, t_stack *receiver);
 int		rotate(t_stack *stack);
 int		reverse_rotate(t_stack *stack);
+
+//utility
+
+void	ft_puterror(char *str);
+void	*create_element(int content);
 
 #endif

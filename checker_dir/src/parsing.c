@@ -6,16 +6,11 @@
 /*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 15:01:01 by agirona           #+#    #+#             */
-/*   Updated: 2021/10/12 17:40:54 by agirona          ###   ########lyon.fr   */
+/*   Updated: 2021/10/18 20:45:46 by agirona          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker.h"
-
-void	ft_puterror(char *str)
-{
-	write(2, str, ft_strlen(str));
-}
 
 int	is_sort(t_stack *stack)
 {
@@ -73,30 +68,48 @@ int	only_num(char *str)
 	return (1);
 }
 
+int	check_format(char **list, int i, int *c)
+{
+	int		isint;
+
+	ft_atoi_check(list[i] + *c, &isint);
+	if (isint == 0)
+		return (0);
+	if ((list[i][*c] == '-' || list[i][*c] == '+'))
+	{
+		*c = *c + 1;
+		if (ft_isdigit(list[i][*c]) == 0)
+			return (0);
+	}
+	while (ft_isdigit(list[i][*c]) == 1)
+		*c = *c + 1;
+	if (list[i][*c] != ' ' && list[i][*c] != '\0')
+		return (0);
+	return (1);
+}
+
 int	check_int(int len, char **list)
 {
-	int			i;
-	int			c;
-	int			isint;
+	int		i;
+	int		c;
 
-	i = 0;
-	while (i < len)
+	i = -1;
+	while (++i < len)
 	{
 		c = 0;
 		while (list[i][c])
 		{
-			if (ft_isdigit(list[i][c]) == 0)
-				if (!((list[i][0] == '-' || list[i][0] == '+')
-					&& only_num(list[i]) == 1))
+			if (list[i][c] == ' ')
+				c++;
+			else if (list[i][c] == '-' || list[i][c] == '+'
+				|| ft_isdigit(list[i][c]) == 1)
+			{
+				if (check_format(list, i, &c) == 0)
 					return (0);
-			c++;
+			}
+			else if (list[i][c] != '\0')
+				return (0);
 		}
-		if (c == 0)
-			return (0);
-		ft_atoi_check(list[i], &isint);
-		if (isint == 0)
-			return (0);
-		i++;
 	}
 	return (1);
 }

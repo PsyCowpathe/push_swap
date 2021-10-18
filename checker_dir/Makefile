@@ -6,13 +6,14 @@
 #    By: agirona <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/12 17:43:47 by agirona           #+#    #+#              #
-#    Updated: 2021/10/13 16:03:18 by agirona          ###   ########lyon.fr    #
+#    Updated: 2021/10/18 19:21:24 by agirona          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = ../checker
 
-SRCS = checker.c delete_stack.c parsing.c stack_init.c swap_instruction.c
+SRCS = checker.c delete_stack.c parsing.c stack_init.c swap_instruction.c \
+	   utility.c
 
 SRCS_DIR = src
 

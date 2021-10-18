@@ -6,41 +6,59 @@
 /*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 15:08:08 by agirona           #+#    #+#             */
-/*   Updated: 2021/10/12 17:41:18 by agirona          ###   ########lyon.fr   */
+/*   Updated: 2021/10/18 20:47:18 by agirona          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker.h"
 
-void	*create_element(int content)
+int	cut_arg(t_stack *list, t_element **current, char *argv, int *c)
 {
 	t_element	*new;
 
-	new = malloc(sizeof(*new));
+	list->len++;
+	new = create_element(ft_atoi(argv + *c));
 	if (new == NULL)
-		return (NULL);
-	new->value = content;
-	new->next = NULL;
-	return (new);
+		return (0);
+	if (list->first == NULL)
+	{
+		list->first = new;
+		*current = list->first;
+	}
+	else
+	{
+		(*current)->next = new;
+		*current = (*current)->next;
+	}
+	while (argv[*c] != ' ' && argv[*c] != '\0')
+		*c = *c + 1;
+	return (1);
 }
 
 int	init_stack(t_stack *list, int argc, char **argv)
 {
 	int			i;
-	t_element	*new;
+	int			c;
 	t_element	*current;
 
-	i = 2;
-	current = list->first;
+	i = 1;
+	current = NULL;
 	list->last = NULL;
 	list->before = NULL;
 	while (i < argc)
 	{
-		new = create_element(ft_atoi(argv[i]));
-		if (new == NULL)
-			return (0);
-		current->next = new;
-		current = current->next;
+		c = 0;
+		while (argv[i][c])
+		{
+			if (argv[i][c] == ' ')
+				c++;
+			if (argv[i][c] == '-' || argv[i][c] == '+'
+				|| ft_isdigit(argv[i][c]) == 1)
+			{
+				if (cut_arg(list, &current, argv[i], &c) == 0)
+					return (0);
+			}
+		}
 		i++;
 	}
 	return (1);
@@ -72,13 +90,13 @@ t_stack	*create_a_stack(int argc, char **argv)
 	a_stack = malloc(sizeof(*a_stack));
 	if (a_stack == NULL)
 		return (NULL);
-	a_stack->first = create_element(ft_atoi(argv[1]));
+	a_stack->first = NULL;
+	a_stack->len = 0;
 	if (init_stack(a_stack, argc, argv) == 0)
 	{
 		free(a_stack);
 		return (NULL);
 	}
-	a_stack->len = argc - 1;
 	get_last_element(a_stack);
 	return (a_stack);
 }

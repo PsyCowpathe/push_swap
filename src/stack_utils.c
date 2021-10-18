@@ -6,7 +6,7 @@
 /*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 02:45:05 by agirona           #+#    #+#             */
-/*   Updated: 2021/10/18 17:48:41 by agirona          ###   ########lyon.fr   */
+/*   Updated: 2021/10/18 20:46:06 by agirona          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,53 +52,37 @@ void	*create_element(int content)
 	return (new);
 }
 
-/*int	init_stack(t_stack *list, int argc, char **argv)
+int	cut_arg(t_stack *list, t_element **current, char *argv, int *c)
 {
-	int			i;
 	t_element	*new;
-	t_element	*current;
 
-	i = 2;
-	current = list->first;
-	list->last = NULL;
-	list->before = NULL;
-	while (i < argc)
+	list->len++;
+	new = create_element(ft_atoi(argv + *c));
+	if (new == NULL)
+		return (0);
+	if (list->first == NULL)
 	{
-		new = create_element(ft_atoi(argv[i]));
-		if (new == NULL)
-			return (0);
-		current->next = new;
-		current = current->next;
-		i++;
+		list->first = new;
+		*current = list->first;
 	}
+	else
+	{
+		(*current)->next = new;
+		*current = (*current)->next;
+	}
+	while (argv[*c] != ' ' && argv[*c] != '\0')
+		*c = *c + 1;
 	return (1);
-}*/
-
-void	print_stack(t_stack *stack, char c)
-{
-	t_element *current;
-
-	current = stack->first;
-	ft_putstr("Stack ");
-	ft_putchar(c);
-	ft_putstr(" = ");
-	while (current != NULL)
-	{
-		ft_putnbr(current->value);
-		ft_putchar(' ');
-		current = current->next;
-	}
-	ft_putchar('\n');
 }
 
 int	init_stack(t_stack *list, int argc, char **argv)
 {
 	int			i;
 	int			c;
-	t_element	*new;
 	t_element	*current;
 
 	i = 1;
+	current = NULL;
 	list->last = NULL;
 	list->before = NULL;
 	while (i < argc)
@@ -108,24 +92,11 @@ int	init_stack(t_stack *list, int argc, char **argv)
 		{
 			if (argv[i][c] == ' ')
 				c++;
-			if (argv[i][c] == '-' || argv[i][c] == '+' || ft_isdigit(argv[i][c]) == 1)
+			if (argv[i][c] == '-' || argv[i][c] == '+'
+				|| ft_isdigit(argv[i][c]) == 1)
 			{
-				list->len++;
-				new = create_element(ft_atoi(argv[i] + c));
-				if (new == NULL)
+				if (cut_arg(list, &current, argv[i], &c) == 0)
 					return (0);
-				if (list->first == NULL)
-				{
-					list->first = new;
-					current = list->first;
-				}
-				else
-				{
-					current->next = new;
-					current = current->next;
-				}
-				while (argv[i][c] != ' ' && argv[i][c] != '\0')
-					c++;
 			}
 		}
 		i++;
