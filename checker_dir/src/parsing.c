@@ -6,7 +6,7 @@
 /*   By: agirona <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 15:01:01 by agirona           #+#    #+#             */
-/*   Updated: 2021/10/18 20:45:46 by agirona          ###   ########lyon.fr   */
+/*   Updated: 2021/10/19 17:13:45 by agirona          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ int	check_int(int len, char **list)
 	while (++i < len)
 	{
 		c = 0;
+		if (list[i][0] == '\0')
+			return (0);
 		while (list[i][c])
 		{
 			if (list[i][c] == ' ')
